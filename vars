@@ -1,0 +1,6 @@
+PXE_IP='192.168.2.5'
+ISO_EXPORT_HOST='192.168.2.2'
+APT_MIRROR='lt'
+KERNEL_PATH='casper/vmlinuz'
+INITRD_PATH='casper/initrd'
+INITRD_ARCHIVE_TYPE='lz'
