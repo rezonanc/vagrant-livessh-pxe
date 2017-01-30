@@ -9,6 +9,19 @@ dpkg-reconfigure debconf -f noninteractive -p critical
 
 apt-get update >/dev/null
 
+if [ ! -f /vagrant/live.iso ] ; then
+  apt-get install -y debootstrap docker.io genisoimage
+  mkdir /temp
+  rsync -a /vagrant/livessh/ /temp/
+  locale-gen "en_US.UTF-8"
+  dpkg-reconfigure -fnoninteractive locales
+  export LC_ALL="en_US.UTF-8"
+  (cd /temp/bin/ && ./build-debootstrap-image.sh)
+  (cd /temp/bin/ && ./build-customized-environment.sh)
+  (cd /temp/bin/ && ./build-livecd-image.sh)
+  cp /temp/livessh-ubuntu16.04.iso /vagrant/live.iso
+fi
+
 rsync /vagrant/live.iso /live.iso
 mkdir -p /mnt/iso
 mount | grep /mnt/iso || mount /live.iso /mnt/iso
