@@ -1,0 +1,4 @@
+[submodule "livessh"]
+	path = livessh
+	url = https://github.com/rezonanc/livessh.git
+	branch = personal
